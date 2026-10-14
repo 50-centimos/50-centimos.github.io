@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Balance: Estética y Mecánica - Portadas de Revista</title>
+    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: #1a1a1a; font-family: sans-serif; }
+        header { background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.5)), url('img/sukigif.gif') no-repeat center center/cover; padding: 50px 20px; text-align: center; font-family: 'Orbitron', sans-serif; width: 100%; display: block; }
+        header img { filter: drop-shadow(0 0 10px rgba(255, 12, 136, 0.8)); margin-bottom: 10px; }
+        header h2 { color: #ff69b4; font-size: 1.4rem; font-weight: 700; text-transform: uppercase; letter-spacing: 4px; font-style: italic; text-shadow: 2px 2px 0px #000000, 0 0 12px #ff1493; margin: 5px 0; }
+        header h1 { color: #ffffff; font-size: 3rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; text-shadow: 3px 3px 0px #000000, 0 0 25px #ff1493, 0 0 10px #ff69b4; margin: 10px 0 0 0; }
+        nav { background-color: #000000 !important; padding: 15px 0 !important; text-align: center !important; border-bottom: 2px solid #333 !important; width: 100% !important; display: block !important; position: relative !important; }
+        nav a { color: #ffffff !important; text-decoration: none !important; padding: 10px 20px !important; font-weight: bold !important; text-transform: uppercase !important; font-size: 0.9rem !important; letter-spacing: 1px !important; display: inline-block !important; }
+        nav a:hover, nav a.active { color: #ff1493 !important; }
+        .grid-museo { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; padding: 40px 20px; background-color: #222222; }
+        .cuadro { margin: 0; display: flex; flex-direction: column; align-items: center; background-color: #111111; padding: 15px; border-radius: 4px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); }
+        .cuadro img { width: 100%; height: 300px; object-fit: contain; }
+        .cuadro figcaption { margin-top: 15px; color: #ffffff; font-family: sans-serif; font-size: 14px; font-weight: bold; text-align: center; text-transform: uppercase; }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="img/yingyang.png" alt="logo" width="100">
+        <h2>Balance: Estética y Mecánica</h2>
+        <h1>Los mejores coches del tuning</h1>
+    </header>
+
+    <nav>
+        <a href="inicio.html">Inicio</a>
+        <a href="index.html">Los Mejores Coches del Tuning</a>
+        <a href="Portadasderevistas.html" class="active">Portadas de Revista</a>
+        <a href="videojuegos.html">Videojuegos</a>
+        <a href="playlist.html">Playlist</a>
+    </nav>
+
+    <main>
+        <section class="grid-museo">
+            <figure class="cuadro"><img src="img/maxituningportada.jpg" alt="Maxi Tuning"><figcaption>Maxi Tuning</figcaption></figure>
+            <figure class="cuadro"><img src="img/optionautoportada.jpg" alt="Option"><figcaption>Option Auto</figcaption></figure>
+            <figure class="cuadro"><img src="img/superstreetportada.jpg" alt="Super Street"><figcaption>Super Street</figcaption></figure>
+            <figure class="cuadro"><img src="img/DUBportada.jpg" alt="DUB"><figcaption>DUB</figcaption></figure>
+            <figure class="cuadro"><img src="img/chromportada.jpg" alt="Chrom & Flammen"><figcaption>Chrom & Flammen</figcaption></figure>
+            <figure class="cuadro"><img src="img/hot4sportada.jpg" alt="Hot4s"><figcaption>Hot4s</figcaption></figure>
+            <figure class="cuadro"><img src="img/importtunerportada.jpg" alt="Import Tuner"><figcaption>Import Tuner</figcaption></figure>
+            <figure class="cuadro"><img src="img/elaborareportada.jpg" alt="Elaborare"><figcaption>Elaborare</figcaption></figure>
+            <figure class="cuadro"><img src="img/modifiedmag.jpg" alt="Modified Mag"><figcaption>Modified Mag</figcaption></figure>
+            <figure class="cuadro"><img src="img/sportscompactcar.jpg" alt="Sports Compact Car"><figcaption>Sports Compact Car</figcaption></figure>
+            <figure class="cuadro"><img src="img/turboportada.jpg" alt="Turbo"><figcaption>Turbo & High-Tech Performance</figcaption></figure>
+            <figure class="cuadro"><img src="img/importracerportada.jpg" alt="Import Racer"><figcaption>Import Racer</figcaption></figure>
+            <figure class="cuadro"><img src="img/hondatuning.jpg" alt="Nueva Revista 13"><figcaption>Honda Tuning</figcaption></figure>
+            <figure class="cuadro"><img src="img/tuningcar.jpg" alt="Nueva Revista 14"><figcaption>TuningCar</figcaption></figure>
+        </section>
+
+        <!-- CORREGIDO: Eliminamos los paddings y el fondo morado exterior para que el GIF ocupe el 100% de la franja y brille sin opacidad -->
+        <div class="info" style="margin-top: 40px; padding: 0; background: none;">
+            <p style="text-align: center; font-style: italic; color: #ffffff; margin-bottom: 20px; padding: 0 20px;">Viendo el equilibrio entre belleza y potencia. Cada diseño visual es único. El arte del tuning. Siempre destacando.</p> 
+            <div class="contenedor-marcas">
+                <!-- Quitamos el linear-gradient totalmente para eliminar la opacidad y dejar el GIF original -->
+                <div style="background: url('img/sukii.gif') no-repeat center center/cover; padding: 40px 20px; width: 100%; display: flex; justify-content: space-between; align-items: center; flex-wrap: nowrap; box-sizing: border-box;">
+                    <img src="img/hot4s.png" alt="Hot4s" style="height: 75px; width: auto; object-fit: contain; flex-shrink: 1; min-width: 0;">
+                    <img src="img/OPTION-90s.jpg" alt="Option" style="height: 55px; width: auto; object-fit: contain; flex-shrink: 1; min-width: 0;">
+                    <img src="img/super-street-logo-blk-bgd-edited-1.png" alt="Super Street" style="height: 45px; width: auto; object-fit: contain; flex-shrink: 1; min-width: 0;">
+                    <img src="img/9cfd90de5003091bc3b34e8d97f51a25_5386d0da943d.avif" alt="DUB" style="height: 60px; width: auto; object-fit: contain; flex-shrink: 1; min-width: 0;">
+                    <img src="img/Chrom&Flammen.png" alt="Chrom & Flammen" style="height: 65px; width: auto; object-fit: contain; flex-shrink: 1; min-width: 0;">
+                    <img src="img/maxi-tuning-logo-png_seeklogo-89553.png" alt="Maxi Tuning" style="height: 50px; width: auto; object-fit: contain; flex-shrink: 1; min-width: 0;">
+                    <img src="img/ImportTuner-Logo.png" alt="Import Tuner" style="height: 55px; width: auto; object-fit: contain; flex-shrink: 1; min-width: 0;">
+                    <img src="img/Elaborareup.gif" alt="Elaborare" style="height: 55px; width: auto; object-fit: contain; flex-shrink: 1; min-width: 0;">
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>"Si no cambias de dirección, puedes terminar exactamente donde comenzaste."</p>
+        <h3>Lao Tzu - 571 a. C. al 471 a. C.</h3>
+    </footer>
+</body>
+</html>

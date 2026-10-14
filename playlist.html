@@ -1,0 +1,733 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Playlist</title>
+
+<style>
+:root {
+  --orange: #ff6a00;
+  --green: #aaff00;
+  --bg: #090b0d;
+  --panel: #15191c;
+  --muted: #899197;
+}
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at top, #283038 0%, #101316 42%, #050607 100%);
+  color: #f3f3f3;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 25px 12px;
+}
+.shell {
+  max-width: 1000px;
+  margin: auto;
+  border: 2px solid #555b5f;
+  border-radius: 18px;
+  background: linear-gradient(#272c30, #0c0e10 30%, #15191b);
+  box-shadow: 0 20px 70px #000b, inset 0 1px #ffffff35;
+  padding: 18px;
+}
+.topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid #444;
+  padding: 3px 3px 15px;
+}
+.brand {
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: 4px;
+  font-style: italic;
+}
+.brand span { color: var(--orange); }
+.small-label {
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+.display {
+  background: #070c08;
+  border: 3px solid #555;
+  border-radius: 9px;
+  padding: 19px;
+  margin: 18px 0;
+  box-shadow: inset 0 0 25px #000;
+  color: var(--green);
+  font-family: "Courier New", monospace;
+  min-height: 125px;
+}
+.display-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 11px;
+  color: #a8c87c;
+  letter-spacing: 1px;
+}
+#nowPlaying {
+  font-size: clamp(20px, 4vw, 34px);
+  font-weight: bold;
+  margin: 15px 0 7px;
+  overflow-wrap: anywhere;
+  text-shadow: 0 0 12px #9f0;
+}
+#artist { color: #b3c9a1; font-size: 14px; }
+.equalizer {
+  display: flex;
+  align-items: end;
+  gap: 3px;
+  height: 20px;
+}
+.equalizer i {
+  display: block;
+  width: 4px;
+  height: 6px;
+  background: var(--green);
+}
+.equalizer i:nth-child(2n) { height: 14px; }
+.equalizer i:nth-child(3n) { height: 19px; }
+
+.stations {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.station {
+  background: linear-gradient(#34393d, #171a1c);
+  border: 1px solid #5a6064;
+  color: white;
+  border-radius: 8px;
+  padding: 14px 7px;
+  cursor: pointer;
+  font-weight: bold;
+  text-align: center;
+}
+.station small {
+  display: block;
+  color: #a8a8a8;
+  font-size: 10px;
+  margin-top: 7px;
+  letter-spacing: 1px;
+}
+.station.active {
+  border-color: var(--orange);
+  color: var(--orange);
+  box-shadow: inset 0 0 15px #ff6a001b, 0 0 8px #ff6a0030;
+}
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 13px 0;
+  border-top: 1px solid #333;
+  border-bottom: 1px solid #333;
+}
+button, select, input[type="text"] {
+  font: inherit;
+}
+.control-btn {
+  background: #292e31;
+  border: 1px solid #555;
+  color: white;
+  padding: 10px 14px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.control-btn:hover { border-color: var(--orange); color: var(--orange); }
+.volume {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  font-size: 12px;
+  color: #bbb;
+}
+input[type="range"] { accent-color: var(--orange); width: 110px; }
+
+.section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 22px 0 12px;
+}
+.section-head h2 {
+  font-size: 14px;
+  letter-spacing: 2px;
+  margin: 0;
+}
+#trackCount { font-size: 11px; color: var(--muted); }
+.filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.filters select, .filters input {
+  background: #101315;
+  color: white;
+  border: 1px solid #454b4f;
+  border-radius: 5px;
+  padding: 10px;
+  min-width: 130px;
+}
+.filters input { flex: 1; min-width: 160px; }
+.track-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.track {
+  display: grid;
+  grid-template-columns: 35px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid #2e3336;
+  border-radius: 6px;
+  background: #111416;
+}
+.track:hover { background: #1d2225; border-color: #555; }
+.track.current { border-color: var(--orange); }
+.track-number { color: #777; font-family: monospace; font-size: 12px; }
+.track-title { font-weight: bold; font-size: 13px; overflow-wrap: anywhere; }
+.track-artist { font-size: 11px; color: #999; margin-top: 5px; }
+.track-tag {
+  color: var(--orange);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 5px;
+}
+.track-actions { display: flex; gap: 6px; }
+.mini-btn {
+  border: 1px solid #454b4f;
+  color: #ddd;
+  background: #252a2d;
+  padding: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 11px;
+}
+.mini-btn:hover { border-color: var(--green); color: var(--green); }
+.empty { color: #aaa; padding: 25px; text-align: center; }
+.local-box {
+  border: 1px dashed #5a6064;
+  border-radius: 8px;
+  padding: 15px;
+  margin-top: 18px;
+  background: #101315;
+}
+.local-box strong { font-size: 13px; }
+.local-box p, .footer {
+  color: #92999d;
+  font-size: 12px;
+  line-height: 1.6;
+}
+input[type="file"] {
+  max-width: 100%;
+  margin-top: 8px;
+  color: #bbb;
+}
+.footer {
+  text-align: center;
+  margin: 20px 0 4px;
+}
+a { color: var(--green); }
+@media(max-width: 560px) {
+  .shell { padding: 12px; }
+  .stations { grid-template-columns: 1fr; }
+  .track { grid-template-columns: 25px minmax(0,1fr); }
+  .track-actions { grid-column: 2; }
+  .volume { margin-left: 0; }
+}
+</style>
+</head>
+
+<body>
+<div class="shell">
+  <div class="topline">
+    <div>
+      <div class="brand">KENWOOD <span>///</span> NOVAFLUX</div>
+      <div class="small-label">UNDERGROUND DIGITAL AUDIO SYSTEM</div>
+    </div>
+    <div class="small-label">CLASSIC GAMES EDITION · 2000s</div>
+  </div>
+
+  <div class="display">
+    <div class="display-top">
+      <span id="displayStation">STATION 01 / TRUE CRIME</span>
+      <span id="status">SYSTEM READY</span>
+    </div>
+    <div id="nowPlaying">NOVaflux Radio</div>
+    <div id="artist">Selecciona una canción para empezar</div>
+    <div class="equalizer" aria-hidden="true">
+      <i></i><i></i><i></i><i></i><i></i><i></i>
+      <i></i><i></i><i></i><i></i><i></i><i></i>
+    </div>
+  </div>
+
+  <div class="stations">
+    <button class="station active" data-station="tc">
+      01 · TRUE CRIME
+      <small>STREETS OF LA</small>
+    </button>
+    <button class="station" data-station="nfs">
+      02 · NFS UNDERGROUND
+      <small>IMPORT TUNER</small>
+    </button>
+    <button class="station" data-station="bo">
+      03 · BURNOUT 3
+      <small>TAKEDOWN RADIO</small>
+    </button>
+  </div>
+
+  <div class="controls">
+    <button class="control-btn" id="prevBtn">|◀ ANTERIOR</button>
+    <button class="control-btn" id="playBtn">▶ REPRODUCIR</button>
+    <button class="control-btn" id="nextBtn">SIGUIENTE ▶|</button>
+    <div class="volume">
+      VOL
+      <input type="range" id="volume" min="0" max="100" value="75">
+      <span id="volumeValue">75%</span>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2 id="listTitle">TRUE CRIME: STREETS OF LA</h2>
+    <span id="trackCount">0 canciones</span>
+  </div>
+
+  <div class="filters">
+    <select id="genreFilter">
+      <option value="all">Todos los géneros</option>
+      <option value="hip-hop">Hip-hop / Rap</option>
+      <option value="rock">Rock</option>
+      <option value="metal">Metal</option>
+      <option value="punk">Punk</option>
+      <option value="electronic">Electrónica</option>
+      <option value="other">Otros</option>
+    </select>
+    <input type="text" id="search" placeholder="Buscar canción o artista...">
+  </div>
+
+  <div class="track-list" id="trackList"></div>
+
+  <div class="local-box">
+    <strong>♫ TU PROPIA BIBLIOTECA</strong>
+    <p>Selecciona archivos de audio de tu ordenador para reproducirlos directamente en esta radio. Los archivos no se suben a ninguna parte.</p>
+    <input type="file" id="fileInput" accept="audio/*" multiple>
+    <p id="localStatus">Todavía no has cargado archivos locales.</p>
+  </div>
+
+  <audio id="audio" preload="metadata"></audio>
+
+  <div class="footer">
+    NOVAFLUX · GAME SOUNDTRACK RADIO<br>
+    Proyecto de afición no oficial. No está afiliado a los desarrolladores ni a los editores de los videojuegos.
+  </div>
+</div>
+
+<script>
+// Cada entrada tiene: título, artista y género.
+// Las listas pueden variar según la edición y la región del juego.
+
+const tracks = [
+  // TRUE CRIME: STREETS OF LA — banda sonora original y temas recopilados
+  {g:"tc",t:"Dance Wit Me",a:"Snoop Dogg",genre:"hip-hop"},
+  {g:"tc",t:"Flick Wit You",a:"Snoop Dogg",genre:"hip-hop"},
+  {g:"tc",t:"Terrorist Threat",a:"Westside Connection",genre:"hip-hop"},
+  {g:"tc",t:"Lights Out",a:"Westside Connection feat. Nocturnal",genre:"hip-hop"},
+  {g:"tc",t:"Don't Fight the Pimpin'",a:"Suga Free",genre:"hip-hop"},
+  {g:"tc",t:"What U Wanna Do",a:"Warren G feat. RBX",genre:"hip-hop"},
+  {g:"tc",t:"True Crime Remix",a:"Young Dre & Bishop Lamont",genre:"hip-hop"},
+  {g:"tc",t:"I'll Do Anything",a:"Damizza & N.U.N.E.",genre:"hip-hop"},
+  {g:"tc",t:"Thug Night",a:"Jayo Felony",genre:"hip-hop"},
+  {g:"tc",t:"Hollywood",a:"Bizzy Bone",genre:"hip-hop"},
+  {g:"tc",t:"Drinks in the Air",a:"Hollywood",genre:"hip-hop"},
+  {g:"tc",t:"Don't Do the Crime",a:"Kam, Cavie & Above the Law",genre:"hip-hop"},
+  {g:"tc",t:"Legends",a:"Boo-Yaa T.R.I.B.E.",genre:"hip-hop"},
+  {g:"tc",t:"They Don't Know",a:"Dee Dimes & Bigg Swoop",genre:"hip-hop"},
+  {g:"tc",t:"Flow",a:"Sly Boogy",genre:"hip-hop"},
+  {g:"tc",t:"This Is How We Live",a:"Lil' 1/2 Dead & Kon-Troversy",genre:"hip-hop"},
+  {g:"tc",t:"We Don't Stop",a:"Soul Star",genre:"hip-hop"},
+  {g:"tc",t:"Can't Fuck with Us",a:"Tray Deee & Mr. Short Khop",genre:"hip-hop"},
+  {g:"tc",t:"Do Time",a:"Pomona City Rydaz & Lil' 1/2 Dead",genre:"hip-hop"},
+  {g:"tc",t:"Roll Wit Me",a:"Young Billionaires",genre:"hip-hop"},
+  {g:"tc",t:"Cali Folks",a:"Stylistik",genre:"hip-hop"},
+  {g:"tc",t:"Let's Get It Crackin'",a:"Lil Eazy E & RizzyBoy",genre:"hip-hop"},
+  {g:"tc",t:"Dangerous",a:"Dr. Stank feat. Butch Cassidy",genre:"hip-hop"},
+  {g:"tc",t:"In and Out",a:"E-40",genre:"hip-hop"},
+  {g:"tc",t:"Foe Life",a:"Mack 10",genre:"hip-hop"},
+  {g:"tc",t:"Live and Learn",a:"Ha Loco feat. Pomona City Rydaz",genre:"hip-hop"},
+  {g:"tc",t:"Compton",a:"Cavie",genre:"hip-hop"},
+  {g:"tc",t:"Play Like We Do",a:"Casino Mafia feat. Baby S",genre:"hip-hop"},
+  {g:"tc",t:"Ring King",a:"Mausberg",genre:"hip-hop"},
+  {g:"tc",t:"Thug the Club",a:"South Central Cartel",genre:"hip-hop"},
+  {g:"tc",t:"Watch Out Now!",a:"Chyneezy feat. Ms. Toi",genre:"hip-hop"},
+  {g:"tc",t:"Rad Dhog",a:"Lil' 1/2 Dead & Still Rich",genre:"hip-hop"},
+  {g:"tc",t:"In Da Streetz",a:"Dee Dimes & collaborators",genre:"hip-hop"},
+  {g:"tc",t:"Pop a Bottle",a:"Hollywood",genre:"hip-hop"},
+  {g:"tc",t:"Yu Who",a:"KAM",genre:"hip-hop"},
+  {g:"tc",t:"Gotta Get Away",a:"Lil' 1/2 Dead & Showtime",genre:"hip-hop"},
+  {g:"tc",t:"Consequences",a:"Lil Eazy E",genre:"hip-hop"},
+  {g:"tc",t:"Hey Baby",a:"N.U.N.E.",genre:"hip-hop"},
+  {g:"tc",t:"Don't U Feel Like a Mark",a:"Jayo Felony",genre:"hip-hop"},
+  {g:"tc",t:"Murda Murda",a:"Mano, Cavie, Kontroversy & B-12",genre:"hip-hop"},
+  {g:"tc",t:"Bitch A$$ Ni",a:"Goon Squad",genre:"hip-hop"},
+  {g:"tc",t:"Royal Blunt",a:"Goon Squad",genre:"hip-hop"},
+  {g:"tc",t:"Crimies",a:"Goon Squad",genre:"hip-hop"},
+  {g:"tc",t:"Goon Squad",a:"Goon Squad",genre:"hip-hop"},
+  {g:"tc",t:"War",a:"NONSTOP feat. Manishflatz",genre:"hip-hop"},
+  {g:"tc",t:"Don't Blame Me",a:"Pimpin' Young",genre:"hip-hop"},
+
+  // Temas licenciados y temas asociados a algunas listas del juego
+  {g:"tc",t:"6 'N The Morning",a:"Ice-T",genre:"hip-hop"},
+  {g:"tc",t:"I'm Your Pusher",a:"Ice-T",genre:"hip-hop"},
+  {g:"tc",t:"For tha Love of $",a:"Bone Thugs-N-Harmony",genre:"hip-hop"},
+  {g:"tc",t:"Thuggish Ruggish Bone",a:"Bone Thugs-N-Harmony",genre:"hip-hop"},
+  {g:"tc",t:"Peace Sells",a:"Megadeth",genre:"metal"},
+  {g:"tc",t:"Symphony of Destruction",a:"Megadeth",genre:"metal"},
+  {g:"tc",t:"Bruises",a:"Ünloco",genre:"rock"},
+  {g:"tc",t:"Not Like You",a:"Systematic",genre:"rock"},
+  {g:"tc",t:"The Formula",a:"The D.O.C.",genre:"hip-hop"},
+  {g:"tc",t:"It's Funky Enough",a:"The D.O.C.",genre:"hip-hop"},
+  {g:"tc",t:"Poem",a:"Taproot",genre:"rock"},
+  {g:"tc",t:"Flashlight",a:"Parliament",genre:"other"},
+  {g:"tc",t:"Minerva",a:"Deftones",genre:"rock"},
+  {g:"tc",t:"(Not Just) Knee Deep",a:"Funkadelic",genre:"other"},
+  {g:"tc",t:"Saint Tropez Is Not Far",a:"Plastilina Mosh",genre:"rock"},
+  {g:"tc",t:"Afro Man",a:"Plastilina Mosh",genre:"rock"},
+  {g:"tc",t:"Rock Star",a:"N.E.R.D.",genre:"rock"},
+  {g:"tc",t:"Lapdance",a:"N.E.R.D.",genre:"hip-hop"},
+  {g:"tc",t:"Let Me Know",a:"Grade 8",genre:"rock"},
+  {g:"tc",t:"Levitate",a:"I Mother Earth",genre:"rock"},
+  {g:"tc",t:"Rain Will Fall",a:"I Mother Earth",genre:"rock"},
+  {g:"tc",t:"The Snow",a:"Audio Bullys",genre:"electronic"},
+  {g:"tc",t:"Them Bones",a:"Alice in Chains",genre:"rock"},
+  {g:"tc",t:"Would?",a:"Alice in Chains",genre:"rock"},
+  {g:"tc",t:"City of Angels",a:"The Distillers",genre:"punk"},
+  {g:"tc",t:"Hall of Mirrors",a:"The Distillers",genre:"punk"},
+  {g:"tc",t:"You Wanna Get Me High",a:"The Donnas",genre:"rock"},
+  {g:"tc",t:"Who Invited You",a:"The Donnas",genre:"rock"},
+  {g:"tc",t:"Two Hundred Years Forgotten",a:"Dry Kill Logic",genre:"metal"},
+  {g:"tc",t:"Lost",a:"Dry Kill Logic",genre:"metal"},
+  {g:"tc",t:"Paper Tiger",a:"Dry Kill Logic",genre:"metal"},
+  {g:"tc",t:"Sin City",a:"Genitorturers",genre:"metal"},
+  {g:"tc",t:"Four Walls Black",a:"Genitorturers",genre:"metal"},
+  {g:"tc",t:"Public Enemy #1",a:"Genitorturers",genre:"metal"},
+
+  // NEED FOR SPEED: UNDERGROUND
+  {g:"nfs",t:"Get Low",a:"Lil Jon & The East Side Boyz",genre:"hip-hop"},
+  {g:"nfs",t:"24s",a:"T.I.",genre:"hip-hop"},
+  {g:"nfs",t:"Sucked In",a:"Jerk",genre:"rock"},
+  {g:"nfs",t:"The Only",a:"Static-X",genre:"metal"},
+  {g:"nfs",t:"Born Too Slow",a:"The Crystal Method",genre:"electronic"},
+  {g:"nfs",t:"Out of Control",a:"Rancid",genre:"punk"},
+  {g:"nfs",t:"Keep It Coming",a:"The Vines",genre:"rock"},
+  {g:"nfs",t:"Like a Bad Girl Should",a:"The Cramps",genre:"punk"},
+  {g:"nfs",t:"Two Lane Blacktop",a:"Rob Zombie",genre:"metal"},
+  {g:"nfs",t:"Supermoves",a:"Overseer",genre:"electronic"},
+  {g:"nfs",t:"Sutures",a:"Finger Eleven",genre:"rock"},
+  {g:"nfs",t:"Mindfields",a:"The Prodigy",genre:"electronic"},
+  {g:"nfs",t:"The Wonders of You",a:"Andy Hunter",genre:"electronic"},
+  {g:"nfs",t:"Get Ready",a:"Terror Squad",genre:"hip-hop"},
+  {g:"nfs",t:"Fear",a:"Sway",genre:"hip-hop"},
+  {g:"nfs",t:"Black Betty",a:"Spiderbait",genre:"rock"},
+  {g:"nfs",t:"This Is the New Shit",a:"Marilyn Manson",genre:"metal"},
+  {g:"nfs",t:"Ain't No Love",a:"Suburban",genre:"rock"},
+  {g:"nfs",t:"The Celebration Song",a:"Unwritten Law",genre:"punk"},
+  {g:"nfs",t:"Fluke",a:"Switch/Twitch",genre:"electronic"},
+
+  // BURNOUT 3: TAKEDOWN
+  {g:"bo",t:"Answer That and Stay Fashionable",a:"AFI",genre:"punk"},
+  {g:"bo",t:"At the End of the Day",a:"Story of the Year",genre:"rock"},
+  {g:"bo",t:"Breathing",a:"Yellowcard",genre:"punk"},
+  {g:"bo",t:"C'mon",a:"Go Betty Go",genre:"punk"},
+  {g:"bo",t:"Dance, Dance",a:"Fall Out Boy",genre:"punk"},
+  {g:"bo",t:"Decent Days and Nights",a:"The Futureheads",genre:"rock"},
+  {g:"bo",t:"Disconnected",a:"Face to Face",genre:"punk"},
+  {g:"bo",t:"Falling Apart",a:"Zebrahead",genre:"punk"},
+  {g:"bo",t:"I'm Not Okay (I Promise)",a:"My Chemical Romance",genre:"rock"},
+  {g:"bo",t:"Just Tonight",a:"The Donots",genre:"punk"},
+  {g:"bo",t:"Memory",a:"Sugarcult",genre:"punk"},
+  {g:"bo",t:"Reinventing Your Exit",a:"Underoath",genre:"metal"},
+  {g:"bo",t:"Stay in Shadow",a:"Finger Eleven",genre:"rock"},
+  {g:"bo",t:"The End of the World",a:"The Cure",genre:"rock"},
+  {g:"bo",t:"The Future Freaks Me Out",a:"Motion City Soundtrack",genre:"punk"},
+  {g:"bo",t:"The Great Escape",a:"Boys Like Girls",genre:"rock"},
+  {g:"bo",t:"This Fire",a:"Franz Ferdinand",genre:"rock"},
+  {g:"bo",t:"Time and Time Again",a:"Chimaira",genre:"metal"},
+  {g:"bo",t:"Under a Glass Moon",a:"Dream Theater",genre:"metal"},
+  {g:"bo",t:"Wish",a:"Alien Ant Farm",genre:"rock"}
+];
+
+const stationNames = {
+  tc: "TRUE CRIME: STREETS OF LA",
+  nfs: "NEED FOR SPEED: UNDERGROUND",
+  bo: "BURNOUT 3: TAKEDOWN"
+};
+
+let station = "tc";
+let currentTrack = null;
+let localTracks = [];
+let queue = [];
+let currentIndex = -1;
+
+const audio = document.getElementById("audio");
+const trackList = document.getElementById("trackList");
+const search = document.getElementById("search");
+const genreFilter = document.getElementById("genreFilter");
+
+function getAllTracks() {
+  return [...tracks, ...localTracks];
+}
+
+function getVisibleTracks() {
+  const term = search.value.trim().toLowerCase();
+  const genre = genreFilter.value;
+
+  return getAllTracks().filter(track => {
+    const matchesStation = track.local || track.g === station;
+    const matchesGenre = genre === "all" || track.genre === genre;
+    const matchesSearch =
+      (track.t + " " + track.a).toLowerCase().includes(term);
+
+    return matchesStation && matchesGenre && matchesSearch;
+  });
+}
+
+function renderTracks() {
+  const visible = getVisibleTracks();
+  document.getElementById("listTitle").textContent = stationNames[station];
+  document.getElementById("trackCount").textContent =
+    visible.length + (visible.length === 1 ? " canción" : " canciones");
+
+  trackList.innerHTML = "";
+
+  if (!visible.length) {
+    trackList.innerHTML =
+      '<div class="empty">No hay canciones que coincidan con tu búsqueda.</div>';
+    return;
+  }
+
+  visible.forEach((track, index) => {
+    const row = document.createElement("div");
+    row.className = "track" +
+      (currentTrack && currentTrack.id === track.id ? " current" : "");
+
+    const number = document.createElement("div");
+    number.className = "track-number";
+    number.textContent = String(index + 1).padStart(2, "0");
+
+    const info = document.createElement("div");
+
+    const title = document.createElement("div");
+    title.className = "track-title";
+    title.textContent = track.t;
+
+    const artist = document.createElement("div");
+    artist.className = "track-artist";
+    artist.textContent = track.a;
+
+    const tag = document.createElement("div");
+    tag.className = "track-tag";
+    tag.textContent = track.local ? "ARCHIVO LOCAL" : track.genre;
+
+    info.append(title, artist, tag);
+
+    const actions = document.createElement("div");
+    actions.className = "track-actions";
+
+    const play = document.createElement("button");
+    play.className = "mini-btn";
+    play.textContent = track.local ? "▶ PLAY" : "▶";
+    play.title = track.local ? "Reproducir archivo local" :
+      "Seleccionar canción";
+    play.addEventListener("click", () => playTrack(track));
+
+    const find = document.createElement("button");
+    find.className = "mini-btn";
+    find.textContent = "BUSCAR ↗";
+    find.title = "Buscar la canción en YouTube";
+    find.addEventListener("click", () => {
+      const query = encodeURIComponent(track.t + " " + track.a);
+      window.open("https://www.youtube.com/results?search_query=" + query,
+        "_blank", "noopener");
+    });
+
+    actions.append(play, find);
+    row.append(number, info, actions);
+    trackList.appendChild(row);
+  });
+}
+
+function playTrack(track) {
+  currentTrack = track;
+
+  document.getElementById("nowPlaying").textContent = track.t;
+  document.getElementById("artist").textContent = track.a;
+  document.getElementById("status").textContent =
+    track.local ? "LOCAL AUDIO" : "TRACK SELECTED";
+
+  if (track.local && track.url) {
+    audio.src = track.url;
+    audio.play().then(() => {
+      document.getElementById("status").textContent = "NOW PLAYING";
+      document.getElementById("playBtn").textContent = "❚❚ PAUSAR";
+    }).catch(() => {
+      document.getElementById("status").textContent = "PULSA REPRODUCIR";
+    });
+  } else {
+    audio.pause();
+    audio.removeAttribute("src");
+    audio.load();
+    document.getElementById("playBtn").textContent = "▶ REPRODUCIR";
+  }
+
+  renderTracks();
+}
+
+function playVisibleAt(index) {
+  const visible = getVisibleTracks();
+  if (!visible.length) return;
+
+  if (index < 0) index = visible.length - 1;
+  if (index >= visible.length) index = 0;
+
+  playTrack(visible[index]);
+}
+
+document.querySelectorAll(".station").forEach(button => {
+  button.addEventListener("click", () => {
+    station = button.dataset.station;
+
+    document.querySelectorAll(".station").forEach(item =>
+      item.classList.toggle("active", item === button)
+    );
+
+    renderTracks();
+    document.getElementById("displayStation").textContent =
+      "STATION / " + station.toUpperCase();
+
+    document.getElementById("status").textContent = "STATION READY";
+  });
+});
+
+search.addEventListener("input", renderTracks);
+genreFilter.addEventListener("change", renderTracks);
+
+document.getElementById("playBtn").addEventListener("click", () => {
+  if (!currentTrack) {
+    playVisibleAt(0);
+    return;
+  }
+
+  if (currentTrack.local && currentTrack.url) {
+    if (audio.paused) {
+      audio.play().then(() => {
+        document.getElementById("status").textContent = "NOW PLAYING";
+        document.getElementById("playBtn").textContent = "❚❚ PAUSAR";
+      }).catch(() => {
+        document.getElementById("status").textContent = "NO SE PUDO REPRODUCIR";
+      });
+    } else {
+      audio.pause();
+    }
+  } else {
+    const query = encodeURIComponent(currentTrack.t + " " + currentTrack.a);
+    window.open("https://www.youtube.com/results?search_query=" + query,
+      "_blank", "noopener");
+  }
+});
+
+document.getElementById("nextBtn").addEventListener("click", () => {
+  const visible = getVisibleTracks();
+  if (!visible.length) return;
+  const index = visible.findIndex(t => currentTrack && t.id === currentTrack.id);
+  playVisibleAt(index + 1);
+});
+
+document.getElementById("prevBtn").addEventListener("click", () => {
+  const visible = getVisibleTracks();
+  if (!visible.length) return;
+  const index = visible.findIndex(t => currentTrack && t.id === currentTrack.id);
+  playVisibleAt(index - 1);
+});
+
+audio.addEventListener("play", () => {
+  document.getElementById("playBtn").textContent = "❚❚ PAUSAR";
+  document.getElementById("status").textContent = "NOW PLAYING";
+});
+
+audio.addEventListener("pause", () => {
+  document.getElementById("playBtn").textContent = "▶ REPRODUCIR";
+});
+
+audio.addEventListener("ended", () => {
+  const visible = getVisibleTracks();
+  const index = visible.findIndex(t => currentTrack && t.id === currentTrack.id);
+  playVisibleAt(index + 1);
+});
+
+document.getElementById("volume").addEventListener("input", event => {
+  const value = Number(event.target.value);
+  audio.volume = value / 100;
+  document.getElementById("volumeValue").textContent = value + "%";
+});
+
+audio.volume = 0.75;
+
+document.getElementById("fileInput").addEventListener("change", event => {
+  const files = Array.from(event.target.files || []);
+  const audioFiles = files.filter(file => file.type.startsWith("audio/"));
+
+  audioFiles.forEach((file, index) => {
+    const url = URL.createObjectURL(file);
+    const name = file.name.replace(/\.[^.]+$/, "");
+    const parts = name.split(" - ");
+
+    localTracks.push({
+      id: "local-" + Date.now() + "-" + index + "-" +
+        Math.random().toString(36).slice(2),
+      g: station,
+      t: parts.length > 1 ? parts.slice(1).join(" - ") : name,
+      a: parts.length > 1 ? parts[0] : "Archivo local",
+      genre: "other",
+      local: true,
+      url
+    });
+  });
+
+  document.getElementById("localStatus").textContent =
+    audioFiles.length
+      ? audioFiles.length + " archivo(s) añadidos a la biblioteca."
+      : "No se han seleccionado archivos de audio válidos.";
+
+  renderTracks();
+});
+
+renderTracks();
+</script>
+</body>
+</html>
+<nav id="contenido-principal">
+        <a href="inicio.html" class="active">Inicio</a>
+        <a href="index.html">Los Mejores Coches del Tuning</a>
+        <a href="portadasderevistas.html">Portadas de Revista</a>
+        <a href="videojuegos.html">Videojuegos</a>
+        <a href="playlist.html">Playlist</a>
+    </nav>

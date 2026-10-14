@@ -1,0 +1,192 @@
+@import url('https://fonts.googleapis.com/css2?family=Anybody&display=swap');
+
+* {
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+body{
+    min-height: 100vh;
+    background-color: #fff;
+    color:#000;
+    font-family: 'Anybody', cursive;
+}
+
+header {
+    /* min-height: 300px; */
+    background-color: rgb(147, 150, 190);
+    text-align: center;
+    padding:60px;
+    
+}
+header h1{
+    font-size: 2.5em;
+}
+nav {
+    /* height: 50px; */
+    background-color: #000;
+    color:#fff;
+    text-align: center;
+}
+nav a{
+    text-decoration: none;
+    color:#fff;
+    padding:15px 20px;
+    display:inline-block;
+    /* background-color: red; */
+}
+
+nav a:hover{
+    text-decoration: underline;
+}
+main article{
+    /* background-color: red; */
+    padding:20px 0;
+    overflow: hidden;
+    
+}
+main article h2{
+    width:40%;
+    min-width: 400px;
+    background-color: rgb(0, 0, 0);
+    padding:20px;
+    color: rgb(255, 255, 255);
+    
+}
+main article .contenido{
+    padding:30px;
+    /* background-color: aqua; */
+}
+main article img{
+    
+    width: 40%;
+    min-width: 100px;
+    max-width: 300px;
+    margin-right: 20px;;
+    float:left;
+}
+main article p{
+    margin-top:20px;
+    /* margin-left:20px; */
+    line-height: 25px;
+}
+main .info{
+    background-color: rgb(147, 150, 190);
+    text-align: center;
+    font-weight: bolder;
+    
+}
+main .info p{
+    padding:40px 20% 0;
+    line-height: 20px;;
+}
+
+main .info img{
+    width: 20%;
+    max-width: 200px;
+    /* border:5px solid #fff; */
+    margin-bottom: -20px;
+}
+footer{
+    /* height: 50px; */
+    background-color: #000;
+    color:#fff;
+    text-align: center;
+    padding:15px;
+}
+.contenedor {
+  display: flex;         /* Activa el diseño en columnas */
+  gap: 20px;             /* Espacio de separación entre columnas */
+}
+
+.columna {
+  flex: 1;               /* Hace que cada columna ocupe el mismo ancho */
+  background-color: #f0f0f0;
+  padding: 15px;
+}
+.contenedor-marcas {
+  background-color: rgb(147, 150, 190); /* El color morado exacto de tu barra inferior */
+  padding: 25px 60px;        /* Más espacio arriba/abajo para que los logos respiren */
+  
+  display: flex;             
+  justify-content: space-between; 
+  align-items: center;       
+  flex-wrap: nowrap;         
+}
+
+.contenedor-marcas img {
+  /* Controlamos el tamaño por ANCHO relativo para forzar a los logos pequeños a crecer */
+  width: 22%;                /* Subimos al 22% para que ocupen mucho más espacio horizontal */
+  max-width: 240px;          /* Límite máximo para que no se descontrolen en pantallas grandes */
+  min-width: 120px;          /* Evita que se encojan de más */
+  
+  height: auto;              /* Altura automática para que mantengan su proporción perfecta */
+  object-fit: contain;       
+  flex-shrink: 0;            /* Prohibido que Flexbox los aplaste o los haga pequeños *//* Esto controla la barra morada */
+.contenedor-marcas {
+  background-color: #847da9 !important; /* El color claro de arriba. El !important fuerza al navegador a hacer caso */
+  padding: 25px 0px;                     /* Espacio arriba y abajo */
+  width: 100%;                           /* Ocupa todo el ancho de la pantalla */
+  
+  display: flex !important;              
+  justify-content: center !important;    /* Centra el bloque entero de logos */
+  gap: 3vw !important;                   /* SEPARACIÓN MATEMÁTICA: Crea el mismo hueco exacto entre imagen e imagen */
+  align-items: center !important;        /* Centra los logos verticalmente */
+  flex-wrap: nowrap !important;          /* Obliga a ir de izquierda a derecha en una sola fila */
+}
+
+/* Esto controla a los logos directamente de forma individual */
+.contenedor-marcas img {
+  height: 50px !important;               /* Forzamos a que todas las revistas midan lo mismo de alto */
+  width: auto !important;                /* Que el ancho se adapte solo para no deformarlas */
+  object-fit: contain !important;        
+  flex-shrink: 0 !important;             /* Prohibido que el navegador las aplaste */
+}
+
+}
+/* Car - https://www.cursors-4u.com/cursor/mec162 */
+* {
+  cursor: url('https://cdn.cursors-4u.net/previews/car-b1ae7ce5-32.webp') 32 32, auto !important;
+}
+/* End www.Cursors-4U.com Code */
+/* El contenedor principal de la exposición */
+.galeria-exposicion {
+  display: grid;
+  /* Crea columnas automáticas. Cambia el '200px' si quieres las portadas más grandes o pequeñas */
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+  gap: 40px;                 /* Separación perfecta entre cuadros (tanto horizontal como vertical) */
+  padding: 40px;
+  background-color: #333333; /* Color de fondo gris oscuro tipo museo (cámbialo a tu gusto) */
+}
+
+/* Cada cuadro individual (Imagen + Texto) */
+.cuadro {
+  margin: 0;
+  display: flex;
+  flex-direction: column;    /* Coloca el texto estrictamente DEBAJO de la imagen */
+  align-items: center;       /* Centra la imagen y el texto horizontalmente */
+  background-color: #1a1a1a; /* Fondo para el "marco" del cuadro (opcional) */
+  padding: 15px;
+  border-radius: 4px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Sombra elegante para dar efecto de cuadro real */
+}
+
+/* Las portadas de las revistas */
+.cuadro img {
+  width: 100%;               /* Se adapta al ancho del cuadro */
+  height: 280px;             /* Altura fija para que todas las portadas de revista midan lo mismo */
+  object-fit: contain;       /* Evita que las portadas se deformen o estiren */
+  background-color: #000;    /* Fondo negro por si la revista es más estrecha */
+}
+
+/* El texto descriptivo de abajo */
+.cuadro figcaption {
+  margin-top: 15px;          /* Separación entre la foto y el texto */
+  color: #ffffff;            /* Color del texto */
+  font-family: sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;        /* Centrado impecable */
+  text-transform: uppercase; /* Hace que el nombre salga en mayúsculas tipo exposición */
+}
