@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Balance: Estética y Mecánica - Videojuegos</title>
+    <link rel="stylesheet" href="estilos.css">
+    
+    <!-- IMPORTAMOS LAS FUENTES RETRO TUNING DE GOOGLE FONTS -->
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Permanent+Marker&family=Archivo+Narrow:ital,wght@1,700;1,900&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Cabecera de la sección de videojuegos al estilo de tu portada */
+        .cabecera-juegos {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.75)), url('img/eclipseportada.gif') no-repeat center center/cover;
+            background-position: center 30%;
+            border-bottom: 4px solid #39ff14;
+            box-shadow: 0 0 20px #39ff14;
+        }
+
+        .cabecera-juegos h1 {
+            font-family: 'Permanent Marker', cursive;
+            font-style: italic;
+            font-size: 3.5rem;
+            margin: 0;
+            background: linear-gradient(#fff700, #ff5500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(4px 4px 0px #000000) drop-shadow(0 0 15px #ff4400);
+        }
+
+        /* ESTRUCTURA DE LA ESTANTERÍA */
+        .zona-habitacion {
+            padding: 50px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* La estantería ahora agrupa los juegos en filas ordenadas */
+        .estanteria {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 60px 25px; /* Más hueco vertical para que respiren al abrirse */
+            padding: 20px 20px 40px 20px;
+            position: relative;
+            border-bottom: 16px solid #333; /* Forzamos la balda física debajo de cada fila */
+            box-shadow: 0 10px 20px rgba(0,0,0,0.8);
+            margin-bottom: 40px;
+        }
+
+        /* INTERACTIVIDAD: CADA CAJA DE VIDEOJUEGO */
+        .juego-caja {
+            background-color: #232323;
+            border: 2px solid #333;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.8);
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        /* Levantar el juego al pasar el ratón */
+        .juego-caja:hover {
+            transform: translateY(-12px) scale(1.02);
+            border-color: #39ff14;
+            box-shadow: 0 0 20px rgba(57, 255, 20, 0.4);
+        }
+
+        /* Oculta la flecha fea de HTML por defecto */
+        .juego-caja summary {
+            list-style: none;
+            outline: none;
+        }
+        .juego-caja summary::-webkit-details-marker {
+            display: none;
+        }
+
+        /* Carátulas con proporción de caja física real */
+        .juego-caja img {
+            width: 100%;
+            height: 310px;
+            object-fit: cover;
+            border-bottom: 2px solid #333;
+        }
+
+        /* Título frontal en la balda */
+        .juego-titulo {
+            font-family: 'Archivo Narrow', sans-serif;
+            font-weight: 900;
+            font-style: italic;
+            font-size: 1.1rem;
+            text-align: center;
+            padding: 12px 5px;
+            margin: 0;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 0px #000000;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* DESPLEGABLE INTERIOR DE DETALLES */
+        .juego-detalles {
+            padding: 15px;
+            background-color: #141414;
+            border-top: 1px solid #333;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #cccccc;
+            animation: despliegaAba 0.3s ease-out;
+        }
+
+        .juego-detalles ul {
+            margin: 0 0 12px 0;
+            padding-left: 15px;
+            color: #39ff14; /* Color verde neón */
+            font-weight: bold;
+            list-style-type: square;
+        }
+
+        .juego-detalles span {
+            color: #ffffff;
+            font-weight: normal;
+        }
+
+        @keyframes despliegaAba {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- CABECERA -->
+    <header class="cabecera-juegos">
+        <h1>Mi Estantería de Clásicos</h1>
+    </header>
+
+    <!-- BARRA DE NAVEGACIÓN -->
+    <nav id="contenido-principal">
+        <a href="inicio.html">Inicio</a>
+        <a href="index.html">Los Mejores Coches del Tuning</a>
+        <a href="portadasderevistas.html">Portadas de Revista</a>
+        <a href="videojuegos.html" class="active">Videojuegos</a>
+        <a href="playlist.html">Playlist</a>
+    </nav>
+
+    <!-- ESTANTERÍA INTERACTIVA -->
+    <main class="zona-habitacion">
+        
+        <!-- ESTANTE 1: SAGA DE LEYENDAS (NFS) -->
+        <h2 style="font-family: 'Archivo Narrow', sans-serif; font-style: italic; color: #fff700; margin-bottom: 15px; text-transform: uppercase;">Sagas Principales</h2>
+        <div class="estanteria">
+
+            <!-- JUEGO 1: NFS UNDERGROUND 1 -->
+            <details class="juego-caja">
+                <summary>
+                    <img src="underground 1 portada.jpg" alt="NFS Underground 1">
+                    <h2 class="juego-titulo">NFS Underground 1</h2>
+                </summary>
+                <div class="juego-detalles">
+                    <ul>
+                        <li>Año: <span>2003</span></li>
+                        <li>Plataformas: <span>PS2, PC, Xbox, GC</span></li>
+                        <li>Foco Tuning: <span>Óxido nitroso, vinilos por capas, alerones masivos y luces de neón.</span></li>
+                    </ul>
+                    <p>El juego que inició la fiebre del tuning tras el impacto de Fast & Furious. La intro con el tema "Get Low" de Lil Jon se quedó grabada a fuego en nuestra cabeza para siempre.</p>
+                </div>
+            </details>
+
+            <!-- JUEGO 2: NFS UNDERGROUND 2 -->
+            <details class="juego-caja">
+                <summary>
+                    <img src="Nfsu2-win-cover.jpg" alt="Need for Speed Underground 2">
+                    <h2 class="juego-titulo">NFS Underground 2</h2>
+                </summary>
+                <div class="juego-detalles">
+                    <ul>
+                        <li>Año: <span>2004</span></li>
+                        <li>Plataformas: <span>PS2, PC, Xbox, GC</span></li>
+                        <li>Foco Tuning: <span>Audio en maletero, puertas de tijera, neón en motor e hidráulicos.</span></li>
+                    </ul>
+                    <p>El rey indiscutible. Añadió la exploración libre por la ciudad nocturna de Bayview y un nivel de personalización de piezas mecánicas y estéticas que ningún juego moderno ha logrado superar.</p>
+                </div>
+            </details>
+
+            <!-- JUEGO 3: NFS MOST WANTED -->
+            <details class="juego-caja">
+                <summary>
+                    <img src="nfsmostwanted.jpg" alt="Need for Speed Most Wanted">
+                    <h2 class="juego-titulo">NFS Most Wanted</h2>
+                </summary>
+                <div class="juego-detalles">
+                    <ul>
+                        <li>Año: <span>2005</span></li>
+                        <li>Plataformas: <span>PS2, PC, Xbox 360, PSP</span></li>
+                        <li>Foco Tuning: <span>Kits de carrocería anchos, vinilos de carreras y el mítico BMW M3 GTR.</span></li>
+                    </ul>
+                    <p>Trasladó las carreras ilegales al día y sumó persecuciones policiales destructivas de infarto. Derrotar a los 15 miembros de la Blacklist era pura adrenalina.</p>
+                </div>
+            </details>
+
+            <!-- JUEGO 4: MIDNIGHT CLUB 3 -->
+            <details class="juego-caja">
+                <summary>
+                    <img src="Midnight_Club_3_-_DUB_Edition_Coverart.jpg" alt="Midnight Club 3">
+                    <h2 class="juego-titulo">Midnight Club 3: DUB</h2>
+                </summary>
+                <div class="juego-detalles">
+                    <ul>
+                        <li>Año: <span>2005</span></li>
+                        <li>Plataformas: <span>PS2, Xbox, PSP</span></li>
+                        <li>Foco Tuning: <span>Llantas cromadas gigantes, suspensiones neumáticas y SUV de lujo.</span></li>
+                    </ul>
+                    <p>Velocidad arcade salvaje en colaboración directa con la revista norteamericana DUB Magazine. Podías tunear desde un Golf hasta Hummers gigantes o motos chopper.</p>
+                </div>
+            </details>
+
+        </div>
+
+        <!-- ESTANTE 2: JOYAS OCULTAS Y NICHO -->
+        <h2 style="font-family: 'Archivo Narrow', sans-serif; font-style: italic; color: #39ff14; margin-bottom: 15px; text-transform: uppercase;">Joyas Ocultas y Nicho</h2>
+        <div class="estanteria">
+
+            <!-- JUEGO 5: STREET LEGAL RACING REDLINE -->
+            <details class="juego-caja">
+                <summary>
+        <!-- ESTANTE 2: JOYAS OCULTAS Y NICHO -->
+        <h2 style="font-family: 'Archivo Narrow', sans-serif; font-style: italic; color: #39ff14; margin-top: 40px; margin-bottom: 15px; text-transform: uppercase;">Juégalos o te reviento</h2>
+        <div class="estanteria">
+
+            <!-- JUEGO 5: STREET LEGAL RACING REDLINE -->
+            <details class="juego-caja">
+                <summary>
+                    <img src="sega.jpg" alt="Street Legal Racing: Redline">
+                    <h2 class="juego-titulo">Street Legal: Redline</h2>
+                </summary>
+                <div class="juego-detalles">
+                    <ul>
+                        <li>Año: <span>2003</span></li>
+                        <li>Plataformas: <span>PC</span></li>
+                        <li>Foco Tuning: <span>Simulación total, desmontar motores pieza a pieza y blocks de cilindros.</span></li>
+                    </ul>
+                    <p>El juego de nicho definitivo en PC. No tuneabas con menús simples: tenías que meter el coche al taller, abrir el capó, desmontar el bloque motor tornillo a tornillo, cambiar pistones, bielas, y ajustar la presión del turbo a mano.</p>
+                </div>
+            </details>
+
+            <!-- JUEGO 6: JUICED -->
+            <details class="juego-caja">
+                <summary>
+                    <img src="juiced.jpg" alt="Juiced">
+                    <h2 class="juego-titulo">Juiced</h2>
+                </summary>
+                <div class="juego-detalles">
+                    <ul>
+                        <li>Año: <span>2005</span></li>
+                        <li>Plataformas: <span>PS2, PC, Xbox</span></li>
+                        <li>Foco Tuning: <span>Marcas reales (HKS, GReddy), apuestas de coche (Pink Slips) y daños.</span></li>
+                    </ul>
+                    <p>La alternativa más seria a NFS. Tenías que ganarte el respeto de las bandas de la ciudad por tu estilo o potencia, organizar tus propias carreras urbanas y arriesgar los papeles de tu coche en desafíos directos.</p>
+                </div>
+            </details>
+
+            <!-- JUEGO 7: STREET RACING SYNDICATE -->
+            <details class="juego-caja">
+                <summary>
+                    <img src="srs.jpg" alt="SRS: Street Racing Syndicate">
+                    <h2 class="juego-titulo">SRS: Syndicate</h2>
+                </summary>
+                <div class="juego-detalles">
+                    <ul>
+                        <li>Año: <span>2004</span></li>
+                        <li>Plataformas: <span>PS2, PC, Xbox, GC</span></li>
+                        <li>Foco Tuning: <span>Licencias oficiales de piezas, carreras por dinero y modelos reales de la época.</span></li>
+                    </ul>
+                    <p>Una joya muy underground distribuida por Namco. Mezclaba carreras callejeras nocturnas realistas con físicas exigentes, multas de policía por conducción temeraria y videos reales de modelos de revistas tuning.</p>
+                </div>
+            </details>
+
+            <!-- JUEGO 8: SEGA GT 2002 -->
+            <details class="juego-caja">
+                <summary>
+                    <img src="segagt.jpg" alt="Sega GT 2002">
+                    <h2 class="juego-titulo">Sega GT 2002</h2>
+                </summary>
+                <div class="juego-detalles">
+                    <ul>
+                        <li>Año: <span>2002</span></li>
+                        <li>Plataformas: <span>Xbox</span></li>
+                        <li>Foco Tuning: <span>Modo Crónica, compra de piezas usadas, garaje clásico y restauración.</span></li>
+                    </ul>
+                    <p>La respuesta directa de SEGA a Gran Turismo. Era único porque tenías que arrancar comprando coches viejos de los 70 u 80 en el mercado de ocasión, buscar piezas baratas de segunda mano en el periódico para potenciarlos y competir.</p>
+                </div>
+            </details>
+
+        </div>
