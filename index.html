@@ -1,97 +1,112 @@
 <!DOCTYPE html>
+
 <html lang="es">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ying Yang</title>
-    <link rel="stylesheet" href="estilos.css">
-    
-    <!-- IMPORTAMOS LA FUENTE FUTURISTA Y2K / JDM -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+
+    <title>Antonio José Fernández Aránegas</title>
+
+    <link rel="stylesheet" href="style.css">
+
 </head>
+
 <body>
-    <!-- Cabecera con el gif animado -->
-    <header style="background: linear-gradient(rgba(147, 150, 190, 0.3), rgba(147, 150, 190, 0.5)), url('elaboraresponsor.gif') no-repeat center center/cover; padding: 50px 20px; text-align: center; font-family: 'Orbitron', sans-serif;">
-        <img src="yingyang.png" alt="logo" width="100" style="filter: drop-shadow(0 0 8px rgba(255,255,255,0.5)); margin-bottom: 10px;">
-        <h2 style="color: #ffffff; font-size: 1.4rem; font-weight: 700; text-transform: uppercase; letter-spacing: 4px; font-style: italic; text-shadow: 2px 2px 4px #000000, 0 0 10px rgba(0, 255, 255, 0.5); margin: 5px 0;">
-            Balance: Estética y Mecánica
-        </h2>
-        <h1 style="color: #ffffff; font-size: 3rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; text-shadow: 3px 3px 0px #000000, 0 0 20px rgba(255, 255, 255, 0.6); margin: 10px 0 0 0;">
-            Los mejores coches del tuning
-        </h1>
+
+    <header>
+
+        <h1>Mi primera página web</h1>
+
+        <p>Aprendiendo HTML y CSS</p>
+
     </header>
+
     <nav>
-         <a href="inicio.html">Inicio</a>
-        <a href="index.html">Los Mejores Coches del Tuning</a>
-        <a href="Portadasderevistas.html">Portadas de Revista</a>
-        <a href="videojuegos.html">Videojuegos</a>
-        <a href="playlist.html">Playlist</a>
+
+        <a href="#inicio">Inicio</a>
+
+        <a href="#sobre-mi">Sobre mí</a>
+
+        <a href="#contacto">Contacto</a>
+
     </nav>
+
     <main>
-        <article>
-            <h2>Toyota Supra A80</h2>
-            <div class="contenido">
-                <img src="Abflug8.webp" alt="img1" width="">
-                <p>Icónico coche, famoso por la primera película de Fast and Furious, videojuegos y en la comunidad del mundo del tuning. Motor 2JZ (2JZ-GTE en su versión biturbo) es considerado uno de los mejores y más legendarios motores de alto rendimiento de la historia por su enorme resistencia ancestral pudiendo soportar hasta 1000 CV, su fiabilidad de fábrica and su capacidad extrema para soportar potencias muy superiores a las originales. Tiene infinitas posibilidades estéticas con ese diseño atemporal</p>
-                <p>(Toyota Supra S900 de AbFlug)</p>
+
+        <section id="inicio" class="presentacion">
+
+            <h2>¡Bienvenido a mi web!</h2>
+
+            <p>Estoy aprendiendo a crear páginas web con HTML y CSS.</p>
+
+            <button>Descubrir más</button>
+
+        </section>
+
+        <section id="sobre-mi">
+
+            <h2>Sobre mí</h2>
+
+            <div class="tarjetas">
+
+                <article class="tarjeta">
+
+                    <h3>HTML</h3>
+
+                    <p>HTML sirve para crear la estructura de una página web.</p>
+
+                </article>
+
+                <article class="tarjeta">
+
+                    <h3>CSS</h3>
+
+                    <p>CSS permite diseñar la página con colores, tamaños y estilos.</p>
+
+                </article>
+
+                <article class="tarjeta">
+
+                    <h3>JavaScript</h3>
+
+                    <p>JavaScript permite añadir interactividad a una página web.</p>
+
+                </article>
+
+                 <article class="tarjeta">
+
+                    <h3>Otro tema</h3>
+                    <img src="bg,f8f8f8-flat,750x,075,f-pad,750x1000,f8f8f8.jpg" alt=chinchilla width="70" height="100"
+
+                    <p>Yo que sé, yo estoy haciendo la tarea</p>
+
+                </article>
+
             </div>
-        </article>
-        <article>
-            <h2>Mazda RX-7 FD3S</h2>
-            <div class="contenido">
-                <img src="sexy style rx7.jpg" alt="img1">
-                <p>El motor del Mazda RX-7 FD3S es una auténtica obra de arte de la ingeniería, famosa por su rendimiento y su particular naturaleza mecánica. Este bloque rotativo Wankel, denominado 13B-REW, prescinde de pistones en favor de dos rotores de 1.3 litros y un innovador sistema biturbo secuencial que entrega hasta 280 CV de fábrica [Mazda]. Más allá de sus cifras de serie, es una mecánica legendaria por sus enormes posibilidades de potenciación, permitiendo a los preparadores exprimir su diseño compacto y flujo de gases para alcanzar potencias estas, convirtiéndolo en un icono del tuning y de los circuitos.</p>
-                <p>(RX-7 ''Pinky Metal'' FD3S de Sexy Style's) </p>
-            </div>
-        </article>
-        <article>
-            <h2>Mitsubishi Eclipse MK3 (Spyder)</h2>
-            <div class="contenido">
-                <img src="eclipse sypder.jpg" alt="img1">
-                <p>Una maravilla visual que tristemente es opacado por su hermano mayor (Eclipse de segunda generación), elegante y con unas líneas que nunca pasaran de moda, si quieres un coche ágil y que se lleve todas las miradas, no mires más.</p>
-                <p>El Mitsubishi Eclipse de tercera generación (MK3) equipa dos opciones de motor atmosférico con tracción delantera: un bloque de 4 cilindros y 2.4 litros (4G64) que rinde 147 CV, enfocado a la fiabilidad diaria, y un más prestacional V6 de 3.0 litros (6G72) que entrega entre 200 y 210 CV, destacando por su empuje y característico sonido. Empújalo al límite y puedes conseguir hasta unos 700 CV!</p>
-                <p>(Eclipse Spyder de Kenwood)</p> 
-            </div>
-        </article>
-        
-        <!-- CORREGIDO: Cambiado el fondo morado liso por el banner mc2.jpg y textos pasados a color blanco -->
-        <div class="info" style="margin-top: 40px; padding: 0; background: none;">
-            <p style="text-align: center; font-style: italic; color: #ffffff; margin-bottom: 20px; padding: 0 20px; text-shadow: 2px 2px 4px #000000;">Viendo el equilibrio entre belleza y potencia. Cada diseño visual es único. El arte del tuning. Siempre destacando.</p> 
-            <div class="contenedor-marcas">
-                <!-- Inyectado el banner mc2.jpg de fondo ocupando el 100% de la franja -->
-                <div style="background: url('mc2.jpg') no-repeat center center/cover; padding: 40px 20px; width: 100%; display: flex; justify-content: space-between; align-items: center; flex-wrap: nowrap; box-sizing: border-box;">
-  
-                  <!-- HOT4s -->
-                  <img src="hot4s.png" alt="Hot4s" style="width: 8%; max-height: 100px; height: auto; object-fit: contain; flex-shrink: 1; min-width: 0;">
-                  
-                  <!-- Option -->
-                  <img src="OPTION-90s.jpg" alt="Option" style="width: 14%; max-height: 90px; height: auto; object-fit: contain; flex-shrink: 1; min-width: 0;">
-                  
-                  <!-- Super Street -->
-                  <img src="super-street-logo-blk-bgd-edited-1.png" alt="Super Street" style="width: 15%; max-height: 90px; height: auto; object-fit: contain; flex-shrink: 1; min-width: 0;">
-                  
-                  <!-- DUB -->
-                  <img src="9cfd90de5003091bc3b34e8d97f51a25_5386d0da943d.avif" alt="DUB" style="width: 14%; max-height: 90px; height: auto; object-fit: contain; flex-shrink: 1; min-width: 0;">
-                  
-                  <!-- Chrom & Flammen -->
-                  <img src="Chrom&Flammen.png" alt="Chrom & Flammen" style="width: 25%; max-height: 130px; height: auto; object-fit: contain; flex-shrink: 1; min-width: 0;">
-                  
-                  <!-- Maxi Tuning -->
-                  <img src="maxi-tuning-logo-png_seeklogo-89553.png" alt="Maxi Tuning" style="width: 25%; max-height: 130px; height: auto; object-fit: contain; flex-shrink: 1; min-width: 0;">
-                  
-                  <!-- Import Tuner -->
-                  <img src="ImportTuner-Logo.png" alt="Import Tuner" style="width: 25%; max-height: 130px; height: auto; object-fit: contain; flex-shrink: 1; min-width: 0;">
-                  
-                  <!-- Elaborare -->
-                  <img src="Elaborareup.gif" alt="Elaborare" style="width: 14%; max-height: 90px; height: auto; object-fit: contain; flex-shrink: 1; min-width: 0;">
-  
-                </div>
-            </div>
-        </div>
+
+        </section>
+
+        <section id="contacto">
+
+            <h2>Contacto</h2>
+
+            <p>Correo: ejemplo@correo.com</p>
+
+        </section>
+
     </main>
-    <footer><p style="color: #ffffff; text-shadow: 1px 1px 2px #000000;">"Si no cambias de dirección, puedes terminar exactamente donde comenzaste."</p><h3 style="color: #ffffff; text-shadow: 1px 1px 2px #000000;">Lao Tzu - 571 a. C. al 471 a. C.</h3></footer>
+
+    <footer>
+
+        <p>© 2026 Mi primera página web</p>
+
+    </footer>
+
 </body>
+
 </html>
+
+ 
