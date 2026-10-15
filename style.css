@@ -92,7 +92,7 @@ section {
 
 h2 {
 
-    color: #80a370;
+    color: #1a3d06;
 
 }
 
@@ -116,7 +116,7 @@ h2 {
 
 button {
 
-    background-color: #ccbf05;
+    background-color: #7e7e7b;
 
     color: white;
 
@@ -129,6 +129,8 @@ button {
     cursor: pointer;
 
     font-size: 16px;
+
+    border-radius: 20px;
 
 }
 
